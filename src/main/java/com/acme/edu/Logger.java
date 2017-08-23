@@ -12,7 +12,7 @@ public class Logger {
     }
 
     public static void log(byte value) {
-        System.out.println(PRIMITIVE + value);
+        print(PRIMITIVE + value);
     }
 
     public static void log(boolean value) {
