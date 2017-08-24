@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static java.lang.System.lineSeparator;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
@@ -22,9 +24,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     //endregion
 
-    /*
-    TODO: implement Logger solution to match specification as tests
-
     @Test
     public void shouldLogIntegersArray() throws IOException {
         //region when
@@ -33,10 +32,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives array: {-1, 0, 1}\n"
+                "primitives array: {-1, 0, 1}" + lineSeparator()
         );
         //endregion
     }
+
+    /*
+    TODO: implement Logger solution to match specification as tests
+
+
 
     @Test
     public void shouldLogIntegersMatrix() throws IOException {
@@ -46,11 +50,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives matrix: {\n" +
-                "{-1, 0, 1}\n" +
-                "{1, 2, 3}\n" +
-                "{-1, -2, -3}\n" +
-            "}\n"
+            "primitives matrix: {" + lineSeparator() +
+                "{-1, 0, 1}" + lineSeparator() +
+                "{1, 2, 3}" + lineSeparator() +
+                "{-1, -2, -3}" + lineSeparator() +
+            "}" + lineSeparator()
         );
         //endregion
     }
@@ -63,11 +67,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives multimatrix: {\n" +
-                "{\n" + "{\n" + "{\n" +
-                    "0\n" +
-                "}\n" + "}\n" + "}\n" +
-            "}\n"
+            "primitives multimatrix: {" + lineSeparator() +
+                "{" + lineSeparator() + "{" + lineSeparator() + "{" + lineSeparator() +
+                    "0" + lineSeparator() +
+                "}" + lineSeparator() + "}" + lineSeparator() + "}" + lineSeparator() +
+            "}" + lineSeparator()
         );
         //endregion
     }
