@@ -9,52 +9,68 @@ public class Logger {
     private static final String CHAR = "char: ";
     private static final String STRING = "string: ";
 
-    private static long currInt = 0;
-    private static String currString = null;
-    private static int currStringCount = 0;
-    private static int currByte = 0;
+    private static long currentSum;
+    private static String currString;
+    private static int currStringCount;
+
+    static {
+        clear();
+    }
 
     public static void flush() {
         printBufferAndClear();
     }
 
-    private enum State{NONE, INT, STRING, BYTE};
+    private enum State {
+        NONE, INT, STRING, BYTE
+    };
+
     private static State state = State.NONE;
 
     public static void log(int value) {
-        long tempValue = currInt;
-        currInt = value + tempValue;
-
         if (state != State.INT) {
             printBufferAndClear();
         }
+
+        currentSum += value;
         state = State.INT;
     }
 
     private static void printBufferAndClear() {
-        switch (state) {
-            case INT:
-                println(PRIMITIVE + getIntSum());
-                break;
-            case STRING:
-                if (currStringCount != 0) {
-                    if (currStringCount > 1) {
-                        println(" (x" + currStringCount + ")");
-                    } else {
-                        println("");
-                    }
-                }
-                break;
-            case BYTE:
-                println(PRIMITIVE + getByteSum());
-                break;
-        }
+        printBuffer();
         clear();
     }
 
-    public static void log(byte value) {
+    private static void printBuffer() {
+        switch (state) {
+            case INT:
+                printSumInContraints(Integer.MIN_VALUE, Integer.MAX_VALUE);
+                break;
+            case STRING:
+                printStringCountSuffix();
+                break;
+            case BYTE:
+                printSumInContraints(Byte.MIN_VALUE, Byte.MAX_VALUE);
+                break;
+        }
+    }
 
-        println(PRIMITIVE + value);
+    private static void printSumInContraints(long lowBound, long upperBound) {
+        long sumInConstraints = getSumInConstraints(lowBound, upperBound);
+        long rest = currentSum - sumInConstraints;
+        if (rest > 0) {
+            println(PRIMITIVE + rest);
+        }
+        println(PRIMITIVE + sumInConstraints);
+    }
+
+    public static void log(byte value) {
+        if (state != State.BYTE) {
+            printBufferAndClear();
+        }
+
+        currentSum += value;
+        state = State.BYTE;
     }
 
     public static void log(boolean value) {
@@ -69,18 +85,13 @@ public class Logger {
         if (state != State.STRING) {
             printBufferAndClear();
         }
-        if (currStringCount > 0) {
-            if (Objects.equals(value, currString)) {
-            } else {
-                printBufferAndClear();
-                print(STRING + value);
-            }
-            currString = value;
-            currStringCount++;
-        } else {
+        if (currStringCount > 0 && !Objects.equals(value, currString)) {
+            printBufferAndClear();
+        }
+        currString = value;
+        currStringCount++;
+        if (currStringCount == 1) {
             print(STRING + value);
-            currString = value;
-            currStringCount++;
         }
         state = State.STRING;
     }
@@ -102,33 +113,25 @@ public class Logger {
         System.out.println((x + y));
         System.out.println(Double.MIN_VALUE < (x / y));
         System.out.println(null instanceof Object);
-        System.out.println("" instanceof String);
     }
 
-    private static void clear() {
-        currInt = 0;
-        currString = null;
-        currStringCount = 0;
-        currByte = 0;
-        state = State.NONE;
-    }
-
-    private static void checkInt() {
-        if (state == State.INT) {
-            println(PRIMITIVE + currInt);
+    public static void printStringCountSuffix() {
+        if (currStringCount == 1) {
+            println("");
+        } else if (currStringCount > 1) {
+            println(" (x" + currStringCount + ")");
         }
     }
 
-    private static void add(int value) {
-        currInt += value;
+    public static void clear() {
+        currentSum = 0;
+        currString = null;
+        currStringCount = 0;
+        state = State.NONE;
     }
 
-    private static byte getByteSum() {
-        return (byte) Math.max(Math.min(Byte.MAX_VALUE, currInt), Byte.MIN_VALUE);
-    }
-
-    private static int getIntSum() {
-        return (int) Math.max(Math.min(Integer.MAX_VALUE, currInt), Integer.MIN_VALUE);
+    private static long getSumInConstraints(long lowBound, long upperBound) {
+        return Math.max(Math.min(upperBound, currentSum), lowBound);
     }
 
 

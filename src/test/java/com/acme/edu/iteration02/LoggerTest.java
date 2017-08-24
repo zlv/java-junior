@@ -16,6 +16,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
+        Logger.clear();
     }
 
     @After
@@ -39,10 +40,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: str 1\n" +
-            "primitive: 3\n" +
-            "string: str 2\n" +
-            "primitive: 0\n"
+            "string: str 1" + lineSeparator() +
+            "primitive: 3" + lineSeparator() +
+            "string: str 2" + lineSeparator() +
+            "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -51,8 +52,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
         Logger.log("str 1");
-        Logger.log(10);
-        Logger.log(Integer.MAX_VALUE);
+        Logger.log(Integer.MAX_VALUE / 2 + 5);
+        Logger.log(Integer.MAX_VALUE / 2 + 5);
         Logger.log("str 2");
         Logger.log(0);
         Logger.flush();
@@ -60,11 +61,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: str 1\n" +
-            "primitive: 10\n" +
-            "primitive: " + Integer.MAX_VALUE + "\n" +
-            "string: str 2\n" +
-            "primitive: 0\n"
+            "string: str 1" + lineSeparator() +
+            "primitive: 9" + lineSeparator() +
+            "primitive: " + Integer.MAX_VALUE + "" + lineSeparator() +
+            "string: str 2" + lineSeparator() +
+            "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -82,11 +83,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: str 1\n" +
-            "primitive: 10\n" +
-            "primitive: " + Byte.MAX_VALUE + "\n" +
-            "string: str 2\n" +
-            "primitive: 0\n"
+            "string: str 1" + lineSeparator() +
+            "primitive: 10" + lineSeparator() +
+            "primitive: " + Byte.MAX_VALUE + "" + lineSeparator() +
+            "string: str 2" + lineSeparator() +
+            "primitive: 0" + lineSeparator()
         );
         //endregion
     }
