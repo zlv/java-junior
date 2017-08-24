@@ -97,21 +97,29 @@ public class Logger {
         state = State.NONE;
     }
 
+    private static void printStringCountSuffix() {
+        if (currStringCount == 1) {
+            println("");
+        } else if (currStringCount > 1) {
+            println(" (x" + currStringCount + ")");
+        }
+    }
+
     private static void printBuffer() {
         switch (state) {
             case INT:
-                printSumInContraints(Integer.MIN_VALUE, Integer.MAX_VALUE);
+                printSumInConstraints(Integer.MIN_VALUE, Integer.MAX_VALUE);
                 break;
             case STRING:
                 printStringCountSuffix();
                 break;
             case BYTE:
-                printSumInContraints(Byte.MIN_VALUE, Byte.MAX_VALUE);
+                printSumInConstraints(Byte.MIN_VALUE, Byte.MAX_VALUE);
                 break;
         }
     }
 
-    private static void printSumInContraints(long lowBound, long upperBound) {
+    private static void printSumInConstraints(long lowBound, long upperBound) {
         long sumInConstraints = getSumInConstraints(lowBound, upperBound);
         long rest = currentSum - sumInConstraints;
         if (rest > 0) {
@@ -120,6 +128,9 @@ public class Logger {
         println(PRIMITIVE_PREFIX + sumInConstraints);
     }
 
+    private static long getSumInConstraints(long lowBound, long upperBound) {
+        return Math.max(Math.min(upperBound, currentSum), lowBound);
+    }
 
     private static void println(String value) {
         System.out.println(value);
@@ -129,20 +140,8 @@ public class Logger {
         System.out.print(value);
     }
 
-    private static void printStringCountSuffix() {
-        if (currStringCount == 1) {
-            println("");
-        } else if (currStringCount > 1) {
-            println(" (x" + currStringCount + ")");
-        }
-    }
-
-    private static long getSumInConstraints(long lowBound, long upperBound) {
-        return Math.max(Math.min(upperBound, currentSum), lowBound);
-    }
-
     private enum State {
         NONE, INT, STRING, BYTE
-    };
+    }
 
 }
