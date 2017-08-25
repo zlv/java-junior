@@ -1,7 +1,7 @@
-package com.acme.edu.iteration01;
+package com.acme.edu.legacy.iteration01;
 
-import com.acme.edu.Logger;
-import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.legacy.Logger;
+import com.acme.edu.legacy.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,6 +71,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Logger.log("test string 1");
         Logger.log("other str");
+        Logger.flush();
         //endregion
 
         //region then

@@ -1,7 +1,7 @@
-package com.acme.edu.iteration03;
+package com.acme.edu.legacy.iteration03;
 
-import com.acme.edu.Logger;
-import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.legacy.Logger;
+import com.acme.edu.legacy.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

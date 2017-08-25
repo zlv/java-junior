@@ -1,7 +1,7 @@
-package com.acme.edu.iteration02;
+package com.acme.edu.legacy.iteration02;
 
-import com.acme.edu.Logger;
-import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.legacy.Logger;
+import com.acme.edu.legacy.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        Logger.clear();
     }
 
     @After
