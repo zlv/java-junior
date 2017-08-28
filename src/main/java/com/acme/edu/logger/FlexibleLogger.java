@@ -1,9 +1,12 @@
 package com.acme.edu.logger;
 
 import com.acme.edu.logger.formatters.LoggerFormatter;
+import com.acme.edu.logger.message.LoggerMessage;
 import com.acme.edu.logger.savers.LoggerPrinter;
+import com.acme.edu.logger.states.State;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * Created by Java_9 on 25.08.2017.
@@ -11,13 +14,16 @@ import java.util.Objects;
 public class FlexibleLogger {
     private final LoggerPrinter loggerPrinter;
     private final LoggerFormatter loggerFormatter;
+    private State currentState;
+    private final State initialState;
 
-    private static long currentSum;
-    private static String currentStringValue;
-    private static int currentStringStreak;
-    private static State currentState;
+    private long currentSum;
+    private String currentStringValue;
+    private int currentStringStreak;
 
-    public FlexibleLogger(LoggerPrinter loggerPrinter, LoggerFormatter loggerFormatter) {
+    public FlexibleLogger(State initialState, LoggerPrinter loggerPrinter, LoggerFormatter loggerFormatter) {
+        this.initialState = initialState;
+        this.currentState = initialState;
         this.loggerPrinter = loggerPrinter;
         this.loggerFormatter = loggerFormatter;
         clear();
@@ -33,7 +39,12 @@ public class FlexibleLogger {
         currentSum = 0;
         currentStringValue = null;
         currentStringStreak = 0;
-        currentState = State.NONE;
+        currentState = initialState;
+    }
+
+    public void log(LoggerMessage loggerMessage) {
+        currentState =
+
     }
 
     public void log(int value) {
@@ -94,17 +105,20 @@ public class FlexibleLogger {
     }
 
     private void printBuffer() {
-        switch (currentState) {
-            case INT:
-                printSumInConstraints(Integer.MIN_VALUE, Integer.MAX_VALUE);
-                break;
-            case STRING:
-                printStringWithStreak();
-                break;
-            case BYTE:
-                printSumInConstraints(Byte.MIN_VALUE, Byte.MAX_VALUE);
-                break;
+        for (String value : currentState.getCurrentOutput()) {
+            loggerPrinter.println(value);
         }
+//        switch (currentState) {
+//            case INT:
+//                printSumInConstraints(Integer.MIN_VALUE, Integer.MAX_VALUE);
+//                break;
+//            case STRING:
+//                printStringWithStreak();
+//                break;
+//            case BYTE:
+//                printSumInConstraints(Byte.MIN_VALUE, Byte.MAX_VALUE);
+//                break;
+//        }
     }
 
     private void printSumInConstraints(long lowBound, long upperBound) {
@@ -120,8 +134,33 @@ public class FlexibleLogger {
         return Math.max(Math.min(upperBound, currentSum), lowBound);
     }
 
-    private enum State {
-        NONE, INT, STRING, BYTE
+//    private enum State {
+//        NONE, INT, STRING, BYTE
+//    }
+
+    public static void main(String[] args) {
+        int[][][][] arr = new int[5][3][2][3];
+        System.out.println(doStuff(arr));
+    }
+
+    private static String doStuff(Object arr) {
+        if (arr.getClass().isArray()) {
+            StringJoiner result = new StringJoiner(", ", "{" + System.lineSeparator(), "}" + System.lineSeparator());
+            if (arr instanceof int[]) {
+                int[] castedArr = (int[]) arr;
+                for (int value : castedArr) {
+                    result.add(String.valueOf(value));
+                }
+            } else if (arr instanceof Object[]) {
+                Object[] castedArr = (Object[]) arr;
+                for (Object value : castedArr) {
+                    result.add(doStuff(value));
+                }
+            }
+            return result.toString();
+        } else {
+            return Objects.toString(arr);
+        }
     }
 
 }

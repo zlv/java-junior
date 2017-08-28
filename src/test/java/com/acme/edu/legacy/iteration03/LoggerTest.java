@@ -37,8 +37,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    /*
-    TODO: implement Logger solution to match specification as tests
+    //TODO: implement Logger solution to match specification as tests
 
 
 
@@ -58,6 +57,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         );
         //endregion
     }
+    /*
 
     @Test
     public void shouldLogIntegersMulitidimentionalArray() throws IOException {
