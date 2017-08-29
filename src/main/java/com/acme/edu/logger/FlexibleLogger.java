@@ -1,7 +1,10 @@
 package com.acme.edu.logger;
 
 import com.acme.edu.logger.formatters.LoggerFormatter;
-import com.acme.edu.logger.message.LoggerMessage;
+import com.acme.edu.logger.messaging.messages.ByteMessage;
+import com.acme.edu.logger.messaging.messages.IntMessage;
+import com.acme.edu.logger.messaging.messages.SimpleMessage;
+import com.acme.edu.logger.messaging.messages.StringMessage;
 import com.acme.edu.logger.savers.LoggerPrinter;
 import com.acme.edu.logger.states.State;
 
@@ -42,12 +45,23 @@ public class FlexibleLogger {
         currentState = initialState;
     }
 
-    public void log(LoggerMessage loggerMessage) {
-        currentState =
-
+    public void log(IntMessage loggerMessage) {
+        currentState.accept(loggerMessage);
     }
 
-    public void log(int value) {
+    public void log(ByteMessage loggerMessage) {
+        currentState.accept(loggerMessage);
+    }
+
+    public void log(SimpleMessage loggerMessage) {
+        currentState.accept(loggerMessage);
+    }
+
+    public void log(StringMessage loggerMessage) {
+        currentState.accept(loggerMessage);
+    }
+
+    /*public void log(int value) {
         if (currentState != State.INT) {
             flush();
         }
@@ -102,7 +116,7 @@ public class FlexibleLogger {
                     .append(")");
         }
         loggerPrinter.println(loggerFormatter.format(builder.toString()));
-    }
+    }*/
 
     private void printBuffer() {
         for (String value : currentState.getCurrentOutput()) {
@@ -121,18 +135,18 @@ public class FlexibleLogger {
 //        }
     }
 
-    private void printSumInConstraints(long lowBound, long upperBound) {
-        long sumInConstraints = getSumInConstraints(lowBound, upperBound);
-        long rest = currentSum - sumInConstraints;
-        if (rest != 0) {
-            loggerPrinter.println(loggerFormatter.format(rest));
-        }
-        loggerPrinter.println(loggerFormatter.format(sumInConstraints));
-    }
-
-    private long getSumInConstraints(long lowBound, long upperBound) {
-        return Math.max(Math.min(upperBound, currentSum), lowBound);
-    }
+//    private void printSumInConstraints(long lowBound, long upperBound) {
+//        long sumInConstraints = getSumInConstraints(lowBound, upperBound);
+//        long rest = currentSum - sumInConstraints;
+//        if (rest != 0) {
+//            loggerPrinter.println(loggerFormatter.format(rest));
+//        }
+//        loggerPrinter.println(loggerFormatter.format(sumInConstraints));
+//    }
+//
+//    private long getSumInConstraints(long lowBound, long upperBound) {
+//        return Math.max(Math.min(upperBound, currentSum), lowBound);
+//    }
 
 //    private enum State {
 //        NONE, INT, STRING, BYTE

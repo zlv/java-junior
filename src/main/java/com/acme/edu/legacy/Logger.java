@@ -1,8 +1,9 @@
 package com.acme.edu.legacy;
 
-import com.acme.edu.logger.message.ByteMessage;
-import com.acme.edu.logger.message.IntMessage;
-import com.acme.edu.logger.message.SimpleMessage;
+import com.acme.edu.logger.messaging.messages.ByteMessage;
+import com.acme.edu.logger.messaging.messages.IntMessage;
+import com.acme.edu.logger.messaging.messages.SimpleMessage;
+import com.acme.edu.logger.states.NoAggregationState;
 import com.acme.edu.ПавликМорозов;
 import com.acme.edu.logger.FlexibleLogger;
 import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
@@ -13,7 +14,7 @@ public class Logger {
     private static final FlexibleLogger logger;
 
     static {
-        logger = new FlexibleLogger(new ConsoleLoggerSaver(), new DefaultLoggerFormatter());
+        logger = new FlexibleLogger(new NoAggregationState(new String[0]), new ConsoleLoggerSaver(), new DefaultLoggerFormatter());
     }
 
     public static void flush() {

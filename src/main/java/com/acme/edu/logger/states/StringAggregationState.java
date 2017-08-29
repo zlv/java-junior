@@ -1,9 +1,9 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.message.ByteMessage;
-import com.acme.edu.logger.message.IntMessage;
-import com.acme.edu.logger.message.SimpleMessage;
-import com.acme.edu.logger.message.StringMessage;
+import com.acme.edu.logger.messaging.messages.ByteMessage;
+import com.acme.edu.logger.messaging.messages.IntMessage;
+import com.acme.edu.logger.messaging.messages.SimpleMessage;
+import com.acme.edu.logger.messaging.messages.StringMessage;
 
 import java.util.Objects;
 
@@ -27,29 +27,29 @@ public class StringAggregationState extends State {
     }
 
     @Override
-    public State acceptMessage(IntMessage message) {
-        return null;
+    public void accept(IntMessage message) {
+//        return null;
     }
 
     @Override
-    public State acceptMessage(ByteMessage message) {
-        return null;
+    public void accept(ByteMessage message) {
+//        return null;
     }
 
     @Override
-    public State acceptMessage(StringMessage message) {
+    public void accept(StringMessage message) {
         if (Objects.equals(message.getValue(), currentValue)) {
             ++count;
-            return this;
+//            return this;
         } else {
-            return new StringAggregationState(message.getValue(), getCurrentOutput());
+//            return new StringAggregationvoid(message.getValue(), getCurrentOutput());
         }
     }
 
     @Override
-    public State acceptMessage(SimpleMessage message) {
+    public void accept(SimpleMessage message) {
         String resultValue = buildValue();
-        return new NoAggregationState(new String[] {resultValue, message.getFormattedMessage()});
+//        return new NoAggregationState(new String[] {resultValue, message.getFormattedMessage()});
     }
 
     private String buildValue() {
