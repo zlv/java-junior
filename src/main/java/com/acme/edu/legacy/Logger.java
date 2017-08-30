@@ -3,7 +3,7 @@ package com.acme.edu.legacy;
 import com.acme.edu.logger.FlexibleLogger;
 import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
 import com.acme.edu.logger.savers.ConsoleLoggerSaver;
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class Logger {
     private static final FlexibleLogger logger;
