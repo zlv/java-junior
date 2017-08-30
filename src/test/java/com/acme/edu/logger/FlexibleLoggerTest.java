@@ -19,7 +19,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * Created by Java_9 on 29.08.2017.
  */
 
-//TODO rename to flexible logger test
 public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
 
     private FlexibleLogger logger;
