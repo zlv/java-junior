@@ -2,14 +2,14 @@ package com.acme.edu.legacy;
 
 import com.acme.edu.logger.FlexibleLogger;
 import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
-import com.acme.edu.logger.savers.ConsoleLoggerSaver;
+import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import org.jetbrains.annotations.Nullable;
 
 public class Logger {
     private static final FlexibleLogger logger;
 
     static {
-        logger = new FlexibleLogger(new ConsoleLoggerSaver(), new DefaultLoggerFormatter());
+        logger = new FlexibleLogger(new ConsoleLoggerPrinter(), new DefaultLoggerFormatter());
     }
 
     public static void flush() {

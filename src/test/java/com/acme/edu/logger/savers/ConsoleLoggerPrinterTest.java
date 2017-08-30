@@ -5,17 +5,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Java_9 on 29.08.2017.
  */
-public class ConsoleLoggerSaverTest implements SysoutCaptureAndAssertionAbility {
-    private ConsoleLoggerSaver loggerSaver;
+public class ConsoleLoggerPrinterTest implements SysoutCaptureAndAssertionAbility {
+    private ConsoleLoggerPrinter loggerSaver;
 
     @Before
     public void setUp() throws Exception {
-        loggerSaver = new ConsoleLoggerSaver();
+        loggerSaver = new ConsoleLoggerPrinter();
         resetOut();
         captureSysout();
     }
