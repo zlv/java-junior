@@ -8,7 +8,7 @@ import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import com.acme.edu.logger.savers.LoggerPrinter;
 import com.acme.edu.logger.states.NoAggregationState;
 import com.acme.edu.ПавликМорозов;
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class Logger {
     private static final LoggerContext logger;
