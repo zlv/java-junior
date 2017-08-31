@@ -3,13 +3,13 @@ package com.acme.edu.logger.messaging.messages;
 import com.acme.edu.logger.messaging.MessageVisitor;
 
 /**
- * Created by Java_9 on 28.08.2017.
+ * Created by Java_9 on 31.08.2017.
  */
-public class IntMessage implements LoggerMessage {
+public class CharMessage implements LoggerMessage {
 
-    private final int value;
+    private final char value;
 
-    public IntMessage(int value) {
+    public CharMessage(char value) {
         this.value = value;
     }
 
@@ -18,8 +18,7 @@ public class IntMessage implements LoggerMessage {
         return visitor.accept(this);
     }
 
-    public int getValue() {
+    public char getValue() {
         return value;
     }
-
 }

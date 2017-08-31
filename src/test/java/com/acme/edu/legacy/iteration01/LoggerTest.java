@@ -20,6 +20,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
     @After
     public void tearDown() {
+        Logger.flush();
         resetOut();
     }
     //endregion

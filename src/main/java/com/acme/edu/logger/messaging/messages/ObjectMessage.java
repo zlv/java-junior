@@ -5,11 +5,11 @@ import com.acme.edu.logger.messaging.MessageVisitor;
 /**
  * Created by Java_9 on 28.08.2017.
  */
-public class IntMessage implements LoggerMessage {
+public class ObjectMessage implements LoggerMessage {
 
-    private final int value;
+    private final Object value;
 
-    public IntMessage(int value) {
+    public ObjectMessage(Object value) {
         this.value = value;
     }
 
@@ -18,8 +18,7 @@ public class IntMessage implements LoggerMessage {
         return visitor.accept(this);
     }
 
-    public int getValue() {
+    public Object getValue() {
         return value;
     }
-
 }

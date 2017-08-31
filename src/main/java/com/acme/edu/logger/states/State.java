@@ -3,20 +3,35 @@ package com.acme.edu.logger.states;
 import com.acme.edu.logger.messaging.MessageVisitor;
 import com.acme.edu.logger.messaging.messages.*;
 
+import java.util.List;
+
 
 /**
  * Created by Java_9 on 28.08.2017.
  */
-public abstract class State implements MessageVisitor {
+public abstract class State implements MessageVisitor<State> {
 
-    protected String[] builtOutput;
+    public abstract List<LoggerMessage> getResultOutput();
 
-    public State(String[] builtOutput) {
-        this.builtOutput = builtOutput;
+    public boolean isReadyForPrint() {return false;}
+
+    @Override
+    public State accept(BooleanMessage message) {
+        return new NoAggregationState(message);
     }
 
-    public String[] getBuildOutput() {
-        return builtOutput;
+    @Override
+    public State accept(ObjectMessage message) {
+        return new NoAggregationState(message);
     }
-    public abstract String[] getCurrentOutput();
+
+    @Override
+    public State accept(CharMessage message) {
+        return new NoAggregationState(message);
+    }
+
+    @Override
+    public State accept(IntArrayMessage message) {
+        return new NoAggregationState(message);
+    }
 }

@@ -1,16 +1,16 @@
 package com.acme.edu.logger.messaging;
 
-import com.acme.edu.logger.messaging.messages.ByteMessage;
-import com.acme.edu.logger.messaging.messages.IntMessage;
-import com.acme.edu.logger.messaging.messages.SimpleMessage;
-import com.acme.edu.logger.messaging.messages.StringMessage;
+import com.acme.edu.logger.messaging.messages.*;
 
 /**
  * Created by Java_9 on 29.08.2017.
  */
-public interface MessageVisitor {
-    void accept(IntMessage message);
-    void accept(ByteMessage message);
-    void accept(StringMessage message);
-    void accept(SimpleMessage message);
+public interface MessageVisitor<T> {
+    T accept(IntMessage message);
+    T accept(ByteMessage message);
+    T accept(StringMessage message);
+    T accept(ObjectMessage message);
+    T accept(BooleanMessage message);
+    T accept(CharMessage message);
+    T accept(IntArrayMessage message);
 }

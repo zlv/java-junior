@@ -7,23 +7,25 @@ import com.acme.edu.logger.messaging.MessageVisitor;
  */
 public class StringMessage implements LoggerMessage {
 
-    private String value;
+    private final String value;
+    private final int stringCount;
 
-    public StringMessage(String value) {
+    public StringMessage(String value, int stringCount) {
         this.value = value;
+        this.stringCount = stringCount;
     }
 
     public String getValue() {
         return value;
     }
 
-    @Override
-    public String getFormattedMessage() {
-        return value;
+    public int getStringCount() {
+        return stringCount;
     }
 
-    @Override
-    public void visit(MessageVisitor visitor) {
 
+    @Override
+    public <T> T visit(MessageVisitor<T> visitor) {
+        return visitor.accept(this);
     }
 }

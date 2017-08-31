@@ -1,42 +1,74 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.ByteMessage;
-import com.acme.edu.logger.messaging.messages.IntMessage;
-import com.acme.edu.logger.messaging.messages.SimpleMessage;
-import com.acme.edu.logger.messaging.messages.StringMessage;
+import com.acme.edu.logger.messaging.MessageVisitor;
+import com.acme.edu.logger.messaging.messages.*;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Java_9 on 28.08.2017.
  */
 public class NoAggregationState extends State {
 
-    public NoAggregationState(String[] builtOutput) {
-        super(builtOutput);
+    @Nullable
+    private LoggerMessage message;
+
+    public NoAggregationState() {
+        message = null;
+    }
+
+    public NoAggregationState(LoggerMessage message) {
+        this.message = message;
     }
 
     @Override
-    public String[] getCurrentOutput() {
-        return new String[0];
-    }
-
-
-    @Override
-    public void accept(IntMessage message) {
-
+    public List<LoggerMessage> getResultOutput() {
+        return message != null ? Collections.singletonList(message) : Collections.emptyList();
     }
 
     @Override
-    public void accept(ByteMessage message) {
-
+    public boolean isReadyForPrint() {
+        return true;
     }
 
     @Override
-    public void accept(StringMessage message) {
-
+    public State accept(IntMessage message) {
+        return new IntAggregationState(message.getValue());
     }
 
     @Override
-    public void accept(SimpleMessage message) {
-
+    public State accept(ByteMessage message) {
+        return new ByteAggregationState(message.getValue());
     }
+
+    @Override
+    public State accept(StringMessage message) {
+        return new StringAggregationState(message.getValue(), message.getStringCount());
+    }
+
+    @Override
+    public State accept(BooleanMessage message) {
+        return setMessage(message);
+    }
+
+    @Override
+    public State accept(CharMessage message) {
+        return setMessage(message);
+    }
+
+    @Override
+    public State accept(IntArrayMessage message) {
+        return setMessage(message);
+    }
+
+
+
+    private State setMessage(LoggerMessage message) {
+        this.message = message;
+        return this;
+    }
+
 }

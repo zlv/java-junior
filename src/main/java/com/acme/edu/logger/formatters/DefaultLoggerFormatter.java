@@ -1,5 +1,8 @@
 package com.acme.edu.logger.formatters;
 
+import com.acme.edu.logger.messaging.messages.*;
+
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -14,33 +17,40 @@ public class DefaultLoggerFormatter implements LoggerFormatter {
     private static final String STRING_PREFIX = "string: ";
 
     @Override
-    public String format(long value) {
-        return PRIMITIVE_PREFIX + value;
+    public String accept(IntMessage message) {
+        return PRIMITIVE_PREFIX + message.getValue();
     }
 
     @Override
-    public String format(boolean value) {
-        return PRIMITIVE_PREFIX + value;
+    public String accept(ByteMessage message) {
+        return PRIMITIVE_PREFIX + message.getValue();
     }
 
     @Override
-    public String format(char value) {
-        return CHAR_PREFIX + value;
+    public String accept(StringMessage message) {
+        int stringCount = message.getStringCount();
+        String suffix = (stringCount == 1 ? "" : " (x" + stringCount + ")");
+        return STRING_PREFIX + message.getValue() + suffix;
     }
 
     @Override
-    public String format(String value) {
-        return STRING_PREFIX + value;
+    public String accept(ObjectMessage message) {
+        return REFERENCE_PREFIX + Objects.toString(message.getValue());
     }
 
     @Override
-    public String format(Object value) {
-        return REFERENCE_PREFIX + value;
+    public String accept(BooleanMessage message) {
+        return PRIMITIVE_PREFIX + message.getValue();
     }
 
     @Override
-    public String format(int[] value) {
-        return PRIMITIVES_ARRAY_PREFIX + formatArray(value);
+    public String accept(CharMessage message) {
+        return CHAR_PREFIX + message.getValue();
+    }
+
+    @Override
+    public String accept(IntArrayMessage message) {
+        return PRIMITIVES_ARRAY_PREFIX + formatArray(message.getValue());
     }
 
     private String formatArray(int[] array) {
