@@ -51,25 +51,4 @@ public class LoggerContext {
         state.getResultOutput().forEach(printerConsumer);
     }
 
-
-    private static String doStuff(Object arr) {
-        if (arr.getClass().isArray()) {
-            StringJoiner result = new StringJoiner(", ", "{" + System.lineSeparator(), "}" + System.lineSeparator());
-            if (arr instanceof int[]) {
-                int[] castedArr = (int[]) arr;
-                for (int value : castedArr) {
-                    result.add(String.valueOf(value));
-                }
-            } else if (arr instanceof Object[]) {
-                Object[] castedArr = (Object[]) arr;
-                for (Object value : castedArr) {
-                    result.add(doStuff(value));
-                }
-            }
-            return result.toString();
-        } else {
-            return Objects.toString(arr);
-        }
-    }
-
 }
