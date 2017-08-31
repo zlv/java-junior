@@ -1,18 +1,24 @@
 package com.acme.edu.legacy;
 
+import com.acme.edu.logger.LoggerContext;
+import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
+import com.acme.edu.logger.formatters.LoggerFormatter;
 import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
+import com.acme.edu.logger.savers.LoggerPrinter;
 import com.acme.edu.logger.states.NoAggregationState;
 import com.acme.edu.ПавликМорозов;
-import com.acme.edu.logger.FlexibleLogger;
-import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
-import com.acme.edu.logger.savers.ConsoleLoggerSaver;
 import com.sun.istack.internal.Nullable;
 
 public class Logger {
-    private static final FlexibleLogger logger;
+    private static final LoggerContext logger;
 
     static {
-        logger = new FlexibleLogger(NoAggregationState::new, new ConsoleLoggerSaver(), new DefaultLoggerFormatter());
+        LoggerPrinter printer = new ConsoleLoggerPrinter();
+        LoggerFormatter formatter = new DefaultLoggerFormatter();
+        logger = new LoggerContext(NoAggregationState::new, message -> {
+            printer.println(message.visit(formatter));
+        });
     }
 
     public static void flush() {

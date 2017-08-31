@@ -1,30 +1,26 @@
 package com.acme.edu.logger;
 
-import com.acme.edu.logger.formatters.LoggerFormatter;
-import com.acme.edu.logger.messaging.messages.*;
-import com.acme.edu.logger.savers.LoggerPrinter;
+import com.acme.edu.logger.messaging.messages.LoggerMessage;
 import com.acme.edu.logger.states.State;
 
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
  * Created by Java_9 on 25.08.2017.
  */
-public class FlexibleLogger {
-    private final LoggerPrinter loggerPrinter;
-    private final LoggerFormatter loggerFormatter;
+public class LoggerContext {
     private State currentState;
     private final Supplier<State> initialStateSupplier;
+    private final Consumer<LoggerMessage> printerConsumer;
 
-    public FlexibleLogger(Supplier<State> initialStateSupplier, LoggerPrinter loggerPrinter, LoggerFormatter loggerFormatter) {
+    public LoggerContext(Supplier<State> initialStateSupplier, Consumer<LoggerMessage> printerConsumer) {
         this.initialStateSupplier = initialStateSupplier;
-        this.loggerPrinter = loggerPrinter;
-        this.loggerFormatter = loggerFormatter;
+        this.printerConsumer = printerConsumer;
         clear();
     }
-
 
     public void flush() {
         flushState(currentState);
@@ -53,7 +49,7 @@ public class FlexibleLogger {
 
     private void flushState(State state) {
         for (LoggerMessage message : state.getResultOutput()) {
-            loggerPrinter.println(message.visit(loggerFormatter));
+            printerConsumer.accept(message);
         }
     }
 
