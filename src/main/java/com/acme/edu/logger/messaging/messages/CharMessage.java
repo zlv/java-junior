@@ -21,4 +21,20 @@ public class CharMessage implements LoggerMessage {
     public char getValue() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CharMessage that = (CharMessage) o;
+
+        return value == that.value;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) value;
+    }
 }

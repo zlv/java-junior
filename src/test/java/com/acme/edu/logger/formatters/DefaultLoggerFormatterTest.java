@@ -1,5 +1,9 @@
 package com.acme.edu.logger.formatters;
 
+import com.acme.edu.logger.messaging.messages.IntArrayMessage;
+import com.acme.edu.logger.messaging.messages.LoggerMessage;
+import com.acme.edu.logger.messaging.messages.ObjectMessage;
+import com.acme.edu.logger.messaging.messages.StringMessage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +24,8 @@ public class DefaultLoggerFormatterTest {
     @Test
     public void shouldContainPrefixAndFormatedTextWhenFormatArray() {
         int[] arr = {3,21,63};
-        String result = loggerFormatter.format(arr);
+        IntArrayMessage intArrMessage = new IntArrayMessage(arr);
+        String result = loggerFormatter.accept(intArrMessage);
 
         assertEquals(result, "primitives array: {3, 21, 63}");
     }
@@ -28,7 +33,8 @@ public class DefaultLoggerFormatterTest {
     @Test
     public void shouldLogEmptyArrayOfPrimitives() {
         int[] array = new int[0];
-        String result = loggerFormatter.format(array);
+        IntArrayMessage intArrMessage = new IntArrayMessage(array);
+        String result = loggerFormatter.accept(intArrMessage);
 
         assertEquals(result, "primitives array: {}");
     }
@@ -39,28 +45,28 @@ public class DefaultLoggerFormatterTest {
         String toStringValue = "my object string";
         when(mockedObject.toString()).thenReturn(toStringValue);
 
-        String result = loggerFormatter.format(mockedObject);
+        String result = loggerFormatter.accept(new ObjectMessage(mockedObject));
 
         assertEquals(result, "reference: " + toStringValue);
     }
 
     @Test
     public void shouldLogNullObjectWithoutNPE() {
-        String result = loggerFormatter.format((Object) null);
+        String result = loggerFormatter.accept(new ObjectMessage(null));
 
         assertEquals(result, "reference: null");
     }
 
     @Test
     public void shouldLogNullStringWithoutNPE() {
-        String result = loggerFormatter.format((String) null);
+        String result = loggerFormatter.accept(new StringMessage(null, 1));
 
         assertEquals(result, "string: null");
     }
 
     @Test
     public void shouldLogNullArrayWithoutNPE() {
-        String result = loggerFormatter.format((int[]) null);
+        String result = loggerFormatter.accept(new IntArrayMessage(null));
 
         assertEquals(result, "primitives array: null");
     }

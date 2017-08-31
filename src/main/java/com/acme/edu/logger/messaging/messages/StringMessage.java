@@ -28,4 +28,23 @@ public class StringMessage implements LoggerMessage {
     public <T> T visit(MessageVisitor<T> visitor) {
         return visitor.accept(this);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StringMessage that = (StringMessage) o;
+
+        if (stringCount != that.stringCount) return false;
+        return value != null ? value.equals(that.value) : that.value == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value != null ? value.hashCode() : 0;
+        result = 31 * result + stringCount;
+        return result;
+    }
 }
