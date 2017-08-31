@@ -48,9 +48,7 @@ public class LoggerContext {
     }
 
     private void flushState(State state) {
-        for (LoggerMessage message : state.getResultOutput()) {
-            printerConsumer.accept(message);
-        }
+        state.getResultOutput().forEach(printerConsumer);
     }
 
 
