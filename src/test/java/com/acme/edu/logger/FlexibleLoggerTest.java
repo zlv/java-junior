@@ -1,15 +1,12 @@
 package com.acme.edu.logger;
 
 import com.acme.edu.legacy.SysoutCaptureAndAssertionAbility;
-import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
 import com.acme.edu.logger.formatters.LoggerFormatter;
 import com.acme.edu.logger.messaging.messages.*;
-import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import com.acme.edu.logger.savers.LoggerPrinter;
 import com.acme.edu.logger.states.NoAggregationState;
 import org.junit.After;
 import org.junit.Before;
-
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;

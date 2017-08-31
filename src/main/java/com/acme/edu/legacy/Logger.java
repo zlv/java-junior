@@ -7,9 +7,6 @@ import com.acme.edu.logger.messaging.messages.*;
 import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import com.acme.edu.logger.savers.LoggerPrinter;
 import com.acme.edu.logger.states.NoAggregationState;
-import com.acme.edu.ПавликМорозов;
-import org.jetbrains.annotations.Nullable;
-import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import org.jetbrains.annotations.Nullable;
 
 public class Logger {
@@ -53,10 +50,6 @@ public class Logger {
 
     public static void log(@Nullable int[] value) {
         logger.log(new IntArrayMessage(value));
-    }
-
-    public static void main(String[] args) {
-        System.out.println(ПавликМорозов.стукануть(logger));
     }
 
 }

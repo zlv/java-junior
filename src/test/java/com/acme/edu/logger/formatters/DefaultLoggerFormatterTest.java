@@ -1,13 +1,12 @@
 package com.acme.edu.logger.formatters;
 
 import com.acme.edu.logger.messaging.messages.IntArrayMessage;
-import com.acme.edu.logger.messaging.messages.LoggerMessage;
 import com.acme.edu.logger.messaging.messages.ObjectMessage;
 import com.acme.edu.logger.messaging.messages.StringMessage;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
