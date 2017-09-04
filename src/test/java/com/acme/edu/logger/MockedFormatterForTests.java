@@ -36,7 +36,7 @@ public class MockedFormatterForTests implements LoggerFormatter {
 
     @Override
     public String visit(CharMessage message) {
-        return "my char" + message.getValue();
+        return "my char: " + message.getValue();
     }
 
     @Override

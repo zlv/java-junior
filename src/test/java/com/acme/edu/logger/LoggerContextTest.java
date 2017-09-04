@@ -40,6 +40,7 @@ public class LoggerContextTest {
         InOrder inOrder = inOrder(consumer1, consumer2);
         inOrder.verify(consumer1, times(1)).accept(message);
         inOrder.verify(consumer2, times(1)).accept(message);
+        inOrder.verifyNoMoreInteractions();
     }
 
 }

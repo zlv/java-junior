@@ -106,4 +106,11 @@ public class DefaultLoggerFormatterTest {
         assertEquals("char: 1", result);
     }
 
+    @Test
+    public void shouldFormatBoolean() {
+        String result = loggerFormatter.visit(new BooleanMessage(true));
+
+        assertEquals("primitive: true", result);
+    }
+
 }

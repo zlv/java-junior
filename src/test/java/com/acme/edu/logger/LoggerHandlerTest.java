@@ -162,12 +162,13 @@ public class LoggerHandlerTest implements SysoutCaptureAndAssertionAbility {
         //when
         logger.log(new ObjectMessage(42));
         logger.log(new BooleanMessage(true));
-        logger.log(new FlushMessage());
+        logger.log(new CharMessage('a'));
 
         //then
         InOrder inOrder = inOrder(mockedPrinter);
         inOrder.verify(mockedPrinter, times(1)).println("my object: 42");
         inOrder.verify(mockedPrinter, times(1)).println("my boolean: true");
+        inOrder.verify(mockedPrinter, times(1)).println("my char: a");
         inOrder.verifyNoMoreInteractions();
     }
 
@@ -236,7 +237,6 @@ public class LoggerHandlerTest implements SysoutCaptureAndAssertionAbility {
         inOrder.verify(mockedPrinter, times(1)).println("my boolean: true");
         inOrder.verifyNoMoreInteractions();
     }
-
 
     @After
     public void tearDown() {

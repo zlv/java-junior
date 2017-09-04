@@ -3,11 +3,12 @@ package com.acme.edu.logger.states;
 import com.acme.edu.logger.messaging.ByteMessage;
 import com.acme.edu.logger.messaging.CharMessage;
 import com.acme.edu.logger.messaging.IntMessage;
+import com.acme.edu.logger.messaging.StringMessage;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * Created by Java_9 on 04.09.2017.
@@ -22,7 +23,7 @@ public class StringAggregationStateTest {
     }
 
     @Test
-    public void shouldSwitchStateOnChar() {
+    public void shouldSwitchStateOnPrimitives() {
         //when
         State result = stringAggregationState.visit(new CharMessage('a'));
 
@@ -31,7 +32,7 @@ public class StringAggregationStateTest {
     }
 
     @Test
-    public void shouldSwitchSatateOnByte() {
+    public void shouldSwitchStateOnByte() {
         //when
         State result = stringAggregationState.visit(new ByteMessage(Byte.MAX_VALUE));
 
@@ -48,5 +49,24 @@ public class StringAggregationStateTest {
         assertThat(result, instanceOf(IntAggregationState.class));
     }
 
+    @Test
+    public void shouldSwitchStateOnDifferentString() {
+        //when
+        State result = stringAggregationState.visit(new StringMessage("another string", 1));
+
+        //then
+        assertThat(result, instanceOf(StringAggregationState.class));
+        assertTrue(stringAggregationState.isDifferentState(result));
+    }
+
+    @Test
+    public void shouldNotSwitchStateOnSameString() {
+        //when
+        State result = stringAggregationState.visit(new StringMessage("value", 1));
+
+        //then
+        assertThat(result, instanceOf(StringAggregationState.class));
+        assertFalse(stringAggregationState.isDifferentState(result));
+    }
 
 }
