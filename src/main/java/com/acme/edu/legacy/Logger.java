@@ -14,6 +14,10 @@ import java.io.IOException;
 public class Logger {
     private static final LoggerContext logger;
 
+    private Logger() {
+
+    }
+
     static {
         LoggerPrinter printer = new ConsoleLoggerPrinter();
         LoggerFormatter formatter = new DefaultLoggerFormatter();

@@ -8,6 +8,10 @@ import static java.lang.Math.min;
  */
 public class AggregationStateUtils {
 
+    private AggregationStateUtils() {
+
+    }
+
     public static long getSumInConstraints(long sum, long lowerBound, long upperBound) {
         return min(max(lowerBound, sum), upperBound);
     }
