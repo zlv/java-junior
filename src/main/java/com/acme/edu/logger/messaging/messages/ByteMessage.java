@@ -22,20 +22,4 @@ public class ByteMessage implements LoggerMessage {
         return visitor.accept(this);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ByteMessage that = (ByteMessage) o;
-
-        return value == that.value;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) value;
-    }
-
 }

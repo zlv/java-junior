@@ -22,19 +22,4 @@ public class BooleanMessage implements LoggerMessage {
         return value;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        BooleanMessage that = (BooleanMessage) o;
-
-        return value == that.value;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return (value ? 1 : 0);
-    }
 }
