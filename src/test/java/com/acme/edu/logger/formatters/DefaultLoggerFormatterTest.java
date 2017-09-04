@@ -1,8 +1,6 @@
 package com.acme.edu.logger.formatters;
 
-import com.acme.edu.logger.messaging.messages.IntArrayMessage;
-import com.acme.edu.logger.messaging.messages.ObjectMessage;
-import com.acme.edu.logger.messaging.messages.StringMessage;
+import com.acme.edu.logger.messaging.messages.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +13,7 @@ import static org.mockito.Mockito.when;
  */
 public class DefaultLoggerFormatterTest {
     private LoggerFormatter loggerFormatter;
+
     @Before
     public void setUp() throws Exception {
         loggerFormatter = new DefaultLoggerFormatter();
@@ -69,4 +68,35 @@ public class DefaultLoggerFormatterTest {
 
         assertEquals(result, "primitives array: null");
     }
+
+    @Test
+    public void shouldPrintStringWithoutSuffixWhenPassSingleString() {
+        String result = loggerFormatter.accept(new StringMessage("test", 1));
+
+        assertEquals(result, "string: test");
+    }
+
+    @Test
+    public void shouldPrintStringWithSuffixWhenPassMultipleStrings() {
+        String result = loggerFormatter.accept(new StringMessage("test", 2));
+
+        assertEquals(result, "string: test (x2)");
+    }
+
+    @Test
+    public void shouldPrintFormatedTextWhenPassByte() {
+        byte value = 42;
+        String result = loggerFormatter.accept(new ByteMessage(value));
+
+        assertEquals(result, "primitive: 42");
+    }
+
+    @Test
+    public void shouldPrintFormatedTextWhenPassInt() {
+        int value = 42;
+        String result = loggerFormatter.accept(new IntMessage((value)));
+
+        assertEquals(result, "primitive: 42");
+    }
+
 }

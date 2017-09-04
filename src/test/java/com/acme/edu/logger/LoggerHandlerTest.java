@@ -236,6 +236,43 @@ public class LoggerHandlerTest implements SysoutCaptureAndAssertionAbility {
         inOrder.verifyNoMoreInteractions();
     }
 
+    @Test
+    public void shouldPrintCurrentStringStreakWhenBooleanMessageSent() throws IOException {
+        //given
+        String testString = "testString";
+        when(mockedFormatter.accept(new StringMessage(testString, 2))).thenReturn("string: " + testString + " (x2)");
+        when(mockedFormatter.accept(new BooleanMessage(true))).thenReturn("true boolean message");
+
+        //when
+        logger.log(new StringMessage(testString, 1));
+        logger.log(new StringMessage(testString, 1));
+        logger.log(new BooleanMessage(true));
+
+        //then
+        InOrder inOrder = inOrder(mockedPrinter);
+        inOrder.verify(mockedPrinter, times(1)).println("string: " + testString + " (x2)");
+        inOrder.verify(mockedPrinter, times(1)).println("true boolean message");
+        inOrder.verifyNoMoreInteractions();
+    }
+
+    @Test
+    public void shouldPrintDifferentMessagesCorrectlyWhenPassBooleanAfterString() throws IOException {
+        //given
+        String testString = "testString";
+        when(mockedFormatter.accept(new StringMessage(testString, 2))).thenReturn("string: " + testString + " (x2)");
+        when(mockedFormatter.accept(new BooleanMessage(true))).thenReturn("true boolean message");
+
+        //when
+        logger.log(new StringMessage(testString, 1));
+        logger.log(new StringMessage(testString, 1));
+        logger.log(new BooleanMessage(true));
+
+        //then
+        InOrder inOrder = inOrder(mockedPrinter);
+        inOrder.verify(mockedPrinter, times(1)).println("string: " + testString + " (x2)");
+        inOrder.verify(mockedPrinter, times(1)).println("true boolean message");
+        inOrder.verifyNoMoreInteractions();
+    }
 
 
     @After

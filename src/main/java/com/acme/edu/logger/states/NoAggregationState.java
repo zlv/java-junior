@@ -73,14 +73,4 @@ public class NoAggregationState extends State {
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        return !(o == null || getClass() != o.getClass());
-    }
-
-    @Override
-    public int hashCode() {
-        return message != null ? message.hashCode() : 0;
-    }
 }

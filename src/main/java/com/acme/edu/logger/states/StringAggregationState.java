@@ -56,22 +56,4 @@ public class StringAggregationState extends State {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        StringAggregationState that = (StringAggregationState) o;
-
-        if (count != that.count) return false;
-        return currentValue != null ? currentValue.equals(that.currentValue) : that.currentValue == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = currentValue != null ? currentValue.hashCode() : 0;
-        result = 31 * result + count;
-        return result;
-    }
 }
