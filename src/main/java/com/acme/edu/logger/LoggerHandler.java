@@ -25,10 +25,10 @@ public class LoggerHandler {
     public void log(LoggerMessage loggerMessage) {
         State previousState = currentState;
         State newState = loggerMessage.visit(currentState);
-        printStateIfReady(newState);
-        if (newState != previousState) {
+        if (newState.getClass() != previousState.getClass()) {
             flushState(previousState);
         }
+        printStateIfReady(newState);
         currentState = newState;
     }
 

@@ -176,6 +176,24 @@ public class LoggerHandlerTest implements SysoutCaptureAndAssertionAbility {
         verifyNoMoreInteractions(mockedPrinter);
     }
 
+    @Test
+    public void shouldPrintDifferentNonAggregatedTypes() {
+        //given
+        when(mockedFormatter.accept(new ObjectMessage(42))).thenReturn("formatted object message");
+        when(mockedFormatter.accept(new BooleanMessage(true))).thenReturn("formatted boolean message");
+
+        //when
+        logger.log(new ObjectMessage(42));
+        logger.log(new BooleanMessage(true));
+        logger.log(new FlushMessage());
+
+        //then
+        InOrder inOrder = inOrder(mockedPrinter);
+        inOrder.verify(mockedPrinter, times(1)).println("formatted object message");
+        inOrder.verify(mockedPrinter, times(1)).println("formatted boolean message");
+        inOrder.verifyNoMoreInteractions();
+    }
+
     @After
     public void tearDown() {
         resetOut();
