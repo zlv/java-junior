@@ -4,7 +4,6 @@ import com.acme.edu.logger.messaging.messages.ByteMessage;
 import com.acme.edu.logger.messaging.messages.IntMessage;
 import com.acme.edu.logger.messaging.messages.LoggerMessage;
 import com.acme.edu.logger.messaging.messages.StringMessage;
-import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.ArrayList;
 import java.util.List;

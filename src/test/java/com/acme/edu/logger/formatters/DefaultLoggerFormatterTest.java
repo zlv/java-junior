@@ -99,4 +99,11 @@ public class DefaultLoggerFormatterTest {
         assertEquals(result, "primitive: 42");
     }
 
+    @Test
+    public void shouldFormatCharMessage() {
+        String result = loggerFormatter.accept(new CharMessage('1'));
+
+        assertEquals("char: 1", result);
+    }
+
 }
