@@ -1,12 +1,12 @@
 package com.acme.edu.legacy;
 
 import com.acme.edu.logger.LoggerContext;
+import com.acme.edu.logger.LoggerHandler;
 import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
 import com.acme.edu.logger.formatters.LoggerFormatter;
 import com.acme.edu.logger.messaging.messages.*;
 import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import com.acme.edu.logger.savers.LoggerPrinter;
-import com.acme.edu.logger.states.NoAggregationState;
 import org.jetbrains.annotations.Nullable;
 
 public class Logger {
@@ -15,13 +15,12 @@ public class Logger {
     static {
         LoggerPrinter printer = new ConsoleLoggerPrinter();
         LoggerFormatter formatter = new DefaultLoggerFormatter();
-        logger = new LoggerContext(NoAggregationState::new, message -> {
-            printer.println(message.visit(formatter));
-        });
+        LoggerHandler handler = new LoggerHandler(message -> printer.println(message.visit(formatter)));
+        logger = new LoggerContext(handler::log);
     }
 
     public static void flush() {
-        logger.flush();
+        logger.log(new FlushMessage());
     }
 
     public static void log(int value) {

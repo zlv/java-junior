@@ -4,7 +4,6 @@ import com.acme.edu.legacy.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.logger.formatters.LoggerFormatter;
 import com.acme.edu.logger.messaging.messages.*;
 import com.acme.edu.logger.savers.LoggerPrinter;
-import com.acme.edu.logger.states.NoAggregationState;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,9 +18,9 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * Created by Java_9 on 29.08.2017.
  */
 
-public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
+public class LoggerHandlerTest implements SysoutCaptureAndAssertionAbility {
 
-    private LoggerContext logger;
+    private LoggerHandler logger;
     @Mock
     private LoggerPrinter mockedPrinter;
     @Mock
@@ -33,7 +32,7 @@ public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
         initMocks(this);
         captureSysout();
         resetOut();
-        logger = new LoggerContext(NoAggregationState::new, message -> {
+        logger = new LoggerHandler(message -> {
             mockedPrinter.println(message.visit(mockedFormatter));
         });
     }
@@ -59,7 +58,7 @@ public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
         //when
         logger.log(new IntMessage(8));
         logger.log(new IntMessage(7));
-        logger.flush();
+        logger.log(new FlushMessage());
 
         //then
         verify(mockedPrinter, times(1)).println("my format with 15 value");
@@ -74,7 +73,7 @@ public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
         //when
         logger.log(new ByteMessage((byte) 23));
         logger.log(new ByteMessage((byte) 7));
-        logger.flush();
+        logger.log(new FlushMessage());
 
         //then
         verify(mockedFormatter, times(1)).accept(new ByteMessage((byte) 30));
@@ -91,7 +90,7 @@ public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
         //when
         logger.log(new ByteMessage(Byte.MAX_VALUE));
         logger.log(new ByteMessage((byte) 27));
-        logger.flush();
+        logger.log(new FlushMessage());
 
         //then
         InOrder inOrder = inOrder(mockedPrinter);
@@ -109,7 +108,7 @@ public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
         //when
         logger.log(new IntMessage(Integer.MIN_VALUE / 2 - 17));
         logger.log(new IntMessage(Integer.MIN_VALUE / 2 - 15));
-        logger.flush();
+        logger.log(new FlushMessage());
 
         //then
         InOrder inOrder = inOrder(mockedPrinter);
@@ -128,7 +127,7 @@ public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
         logger.log(new StringMessage(myString, 1));
         logger.log(new StringMessage(myString, 1));
         logger.log(new StringMessage(myString, 1));
-        logger.flush();
+        logger.log(new FlushMessage());
 
         //then
         verify(mockedPrinter, times(1)).println("string: " + myString + " (x3)");
@@ -170,7 +169,7 @@ public class FlexibleLoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //when
         logger.log(new StringMessage(inputString, 1));
-        logger.flush();
+        logger.log(new FlushMessage());
 
         //then
         verify(mockedPrinter, times(1)).println("formatted test string");

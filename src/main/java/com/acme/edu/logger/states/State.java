@@ -34,4 +34,9 @@ public abstract class State implements MessageVisitor<State> {
     public State accept(IntArrayMessage message) {
         return new NoAggregationState(message);
     }
+
+    @Override
+    public State accept(FlushMessage message) {
+        return new NoAggregationState();
+    }
 }

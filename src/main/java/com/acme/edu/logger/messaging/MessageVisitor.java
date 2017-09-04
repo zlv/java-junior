@@ -13,4 +13,5 @@ public interface MessageVisitor<T> {
     T accept(BooleanMessage message);
     T accept(CharMessage message);
     T accept(IntArrayMessage message);
+    T accept(FlushMessage message);
 }

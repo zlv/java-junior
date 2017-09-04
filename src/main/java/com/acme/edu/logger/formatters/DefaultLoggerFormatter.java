@@ -53,6 +53,11 @@ public class DefaultLoggerFormatter implements LoggerFormatter {
         return PRIMITIVES_ARRAY_PREFIX + formatArray(message.getValue());
     }
 
+    @Override
+    public String accept(FlushMessage message) {
+        return null;
+    }
+
     private String formatArray(int[] array) {
         if (array == null) {
             return "null";

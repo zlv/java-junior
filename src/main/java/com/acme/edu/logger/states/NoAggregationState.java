@@ -1,10 +1,8 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.MessageVisitor;
 import com.acme.edu.logger.messaging.messages.*;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,7 +61,6 @@ public class NoAggregationState extends State {
     public State accept(IntArrayMessage message) {
         return setMessage(message);
     }
-
 
 
     private State setMessage(LoggerMessage message) {
