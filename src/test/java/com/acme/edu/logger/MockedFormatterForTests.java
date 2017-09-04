@@ -1,7 +1,7 @@
 package com.acme.edu.logger;
 
 import com.acme.edu.logger.formatters.LoggerFormatter;
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.*;
 
 import java.util.Arrays;
 
@@ -10,42 +10,42 @@ import java.util.Arrays;
  */
 public class MockedFormatterForTests implements LoggerFormatter {
     @Override
-    public String accept(IntMessage message) {
+    public String visit(IntMessage message) {
         return "my int value: " + message.getValue();
     }
 
     @Override
-    public String accept(ByteMessage message) {
+    public String visit(ByteMessage message) {
         return "my byte value: " + message.getValue();
     }
 
     @Override
-    public String accept(StringMessage message) {
+    public String visit(StringMessage message) {
         return "my string " + message.getValue() + " occurred " + message.getStringCount() + " times";
     }
 
     @Override
-    public String accept(ObjectMessage message) {
+    public String visit(ObjectMessage message) {
         return "my object: " + message.getValue();
     }
 
     @Override
-    public String accept(BooleanMessage message) {
+    public String visit(BooleanMessage message) {
         return "my boolean: " + message.getValue();
     }
 
     @Override
-    public String accept(CharMessage message) {
+    public String visit(CharMessage message) {
         return "my char" + message.getValue();
     }
 
     @Override
-    public String accept(IntArrayMessage message) {
+    public String visit(IntArrayMessage message) {
         return "my array: " + Arrays.toString(message.getValue());
     }
 
     @Override
-    public String accept(FlushMessage message) {
+    public String visit(FlushMessage message) {
         return null;
     }
 }

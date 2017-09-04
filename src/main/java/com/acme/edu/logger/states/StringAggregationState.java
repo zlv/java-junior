@@ -1,9 +1,9 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.ByteMessage;
-import com.acme.edu.logger.messaging.messages.IntMessage;
-import com.acme.edu.logger.messaging.messages.LoggerMessage;
-import com.acme.edu.logger.messaging.messages.StringMessage;
+import com.acme.edu.logger.messaging.ByteMessage;
+import com.acme.edu.logger.messaging.IntMessage;
+import com.acme.edu.logger.messaging.LoggerMessage;
+import com.acme.edu.logger.messaging.StringMessage;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,17 +37,17 @@ public class StringAggregationState extends State {
     }
 
     @Override
-    public State accept(IntMessage message) {
+    public State visit(IntMessage message) {
         return new IntAggregationState(message.getValue());
     }
 
     @Override
-    public State accept(ByteMessage message) {
+    public State visit(ByteMessage message) {
         return new ByteAggregationState(message.getValue());
     }
 
     @Override
-    public State accept(StringMessage message) {
+    public State visit(StringMessage message) {
         if (Objects.equals(message.getValue(), currentValue)) {
             ++count;
             return this;

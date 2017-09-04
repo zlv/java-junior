@@ -1,6 +1,6 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -38,32 +38,32 @@ public class NoAggregationState extends State {
     }
 
     @Override
-    public State accept(IntMessage message) {
+    public State visit(IntMessage message) {
         return new IntAggregationState(message.getValue());
     }
 
     @Override
-    public State accept(ByteMessage message) {
+    public State visit(ByteMessage message) {
         return new ByteAggregationState(message.getValue());
     }
 
     @Override
-    public State accept(StringMessage message) {
+    public State visit(StringMessage message) {
         return new StringAggregationState(message.getValue(), message.getStringCount());
     }
 
     @Override
-    public State accept(BooleanMessage message) {
+    public State visit(BooleanMessage message) {
         return setMessage(message);
     }
 
     @Override
-    public State accept(CharMessage message) {
+    public State visit(CharMessage message) {
         return setMessage(message);
     }
 
     @Override
-    public State accept(IntArrayMessage message) {
+    public State visit(IntArrayMessage message) {
         return setMessage(message);
     }
 

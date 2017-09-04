@@ -4,7 +4,7 @@ import com.acme.edu.logger.LoggerContext;
 import com.acme.edu.logger.LoggerHandler;
 import com.acme.edu.logger.formatters.DefaultLoggerFormatter;
 import com.acme.edu.logger.formatters.LoggerFormatter;
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.*;
 import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import com.acme.edu.logger.savers.LoggerPrinter;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +23,7 @@ public class Logger {
         LoggerFormatter formatter = new DefaultLoggerFormatter();
         LoggerHandler handler = new LoggerHandler(message -> {
             try {
-                printer.println(message.visit(formatter));
+                printer.println(message.accept(formatter));
             } catch (IOException e) {
                 e.printStackTrace();
             }

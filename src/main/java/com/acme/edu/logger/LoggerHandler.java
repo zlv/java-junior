@@ -1,6 +1,6 @@
 package com.acme.edu.logger;
 
-import com.acme.edu.logger.messaging.messages.LoggerMessage;
+import com.acme.edu.logger.messaging.LoggerMessage;
 import com.acme.edu.logger.states.NoAggregationState;
 import com.acme.edu.logger.states.State;
 
@@ -24,7 +24,7 @@ public class LoggerHandler {
 
     public void log(LoggerMessage loggerMessage) {
         State previousState = currentState;
-        State newState = loggerMessage.visit(currentState);
+        State newState = loggerMessage.accept(currentState);
         if (newState.isDifferentState(previousState)) {
             flushState(previousState);
         }

@@ -1,7 +1,7 @@
 package com.acme.edu.logger;
 
-import com.acme.edu.logger.messaging.messages.IntMessage;
-import com.acme.edu.logger.messaging.messages.LoggerMessage;
+import com.acme.edu.logger.messaging.IntMessage;
+import com.acme.edu.logger.messaging.LoggerMessage;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;

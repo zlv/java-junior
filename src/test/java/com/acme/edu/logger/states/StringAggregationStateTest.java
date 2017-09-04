@@ -1,8 +1,8 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.ByteMessage;
-import com.acme.edu.logger.messaging.messages.CharMessage;
-import com.acme.edu.logger.messaging.messages.IntMessage;
+import com.acme.edu.logger.messaging.ByteMessage;
+import com.acme.edu.logger.messaging.CharMessage;
+import com.acme.edu.logger.messaging.IntMessage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class StringAggregationStateTest {
     @Test
     public void shouldSwitchStateOnChar() {
         //when
-        State result = stringAggregationState.accept(new CharMessage('a'));
+        State result = stringAggregationState.visit(new CharMessage('a'));
 
         //then
         assertThat(result, instanceOf(NoAggregationState.class));
@@ -33,7 +33,7 @@ public class StringAggregationStateTest {
     @Test
     public void shouldSwitchSatateOnByte() {
         //when
-        State result = stringAggregationState.accept(new ByteMessage(Byte.MAX_VALUE));
+        State result = stringAggregationState.visit(new ByteMessage(Byte.MAX_VALUE));
 
         //then
         assertThat(result, instanceOf(ByteAggregationState.class));
@@ -42,7 +42,7 @@ public class StringAggregationStateTest {
     @Test
     public void shouldSwitchSatateOnInt() {
         //when
-        State result = stringAggregationState.accept(new IntMessage(42));
+        State result = stringAggregationState.visit(new IntMessage(42));
 
         //then
         assertThat(result, instanceOf(IntAggregationState.class));

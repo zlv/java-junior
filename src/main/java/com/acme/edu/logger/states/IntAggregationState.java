@@ -1,9 +1,9 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.ByteMessage;
-import com.acme.edu.logger.messaging.messages.IntMessage;
-import com.acme.edu.logger.messaging.messages.LoggerMessage;
-import com.acme.edu.logger.messaging.messages.StringMessage;
+import com.acme.edu.logger.messaging.ByteMessage;
+import com.acme.edu.logger.messaging.IntMessage;
+import com.acme.edu.logger.messaging.LoggerMessage;
+import com.acme.edu.logger.messaging.StringMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,18 +42,18 @@ public class IntAggregationState extends State {
     }
 
     @Override
-    public State accept(IntMessage message) {
+    public State visit(IntMessage message) {
         sum += message.getValue();
         return this;
     }
 
     @Override
-    public State accept(ByteMessage message) {
+    public State visit(ByteMessage message) {
         return new ByteAggregationState(message.getValue());
     }
 
     @Override
-    public State accept(StringMessage message) {
+    public State visit(StringMessage message) {
         return new StringAggregationState(message.getValue(), message.getStringCount());
     }
 

@@ -1,7 +1,6 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.MessageVisitor;
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.*;
 
 import java.util.List;
 
@@ -20,27 +19,27 @@ public abstract class State implements MessageVisitor<State> {
     public abstract boolean isDifferentState(State other);
 
     @Override
-    public State accept(BooleanMessage message) {
+    public State visit(BooleanMessage message) {
         return new NoAggregationState(message);
     }
 
     @Override
-    public State accept(ObjectMessage message) {
+    public State visit(ObjectMessage message) {
         return new NoAggregationState(message);
     }
 
     @Override
-    public State accept(CharMessage message) {
+    public State visit(CharMessage message) {
         return new NoAggregationState(message);
     }
 
     @Override
-    public State accept(IntArrayMessage message) {
+    public State visit(IntArrayMessage message) {
         return new NoAggregationState(message);
     }
 
     @Override
-    public State accept(FlushMessage message) {
+    public State visit(FlushMessage message) {
         return new NoAggregationState();
     }
 }

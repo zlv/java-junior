@@ -1,6 +1,6 @@
 package com.acme.edu.logger;
 
-import com.acme.edu.logger.messaging.messages.LoggerMessage;
+import com.acme.edu.logger.messaging.LoggerMessage;
 
 import java.util.ArrayList;
 import java.util.List;

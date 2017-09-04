@@ -2,7 +2,7 @@ package com.acme.edu.logger;
 
 import com.acme.edu.legacy.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.logger.formatters.LoggerFormatter;
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.*;
 import com.acme.edu.logger.savers.LoggerPrinter;
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +36,7 @@ public class LoggerHandlerTest implements SysoutCaptureAndAssertionAbility {
         resetOut();
         logger = new LoggerHandler(message -> {
             try {
-                mockedPrinter.println(message.visit(formatter));
+                mockedPrinter.println(message.accept(formatter));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

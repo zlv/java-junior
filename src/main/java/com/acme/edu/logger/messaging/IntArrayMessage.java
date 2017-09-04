@@ -1,8 +1,7 @@
-package com.acme.edu.logger.messaging.messages;
+package com.acme.edu.logger.messaging;
 
+import com.acme.edu.logger.messaging.LoggerMessage;
 import com.acme.edu.logger.messaging.MessageVisitor;
-
-import java.util.Arrays;
 
 /**
  * Created by Java_9 on 31.08.2017.
@@ -16,8 +15,8 @@ public class IntArrayMessage implements LoggerMessage {
     }
 
     @Override
-    public <T> T visit(MessageVisitor<T> visitor) {
-        return visitor.accept(this);
+    public <T> T accept(MessageVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
     public int[] getValue() {

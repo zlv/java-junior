@@ -1,7 +1,7 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.CharMessage;
-import com.acme.edu.logger.messaging.messages.ObjectMessage;
+import com.acme.edu.logger.messaging.CharMessage;
+import com.acme.edu.logger.messaging.ObjectMessage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class NoAggregationStateTest {
     @Test
     public void shouldSwitchStateOnChar() {
         //when
-        State result = noAggregationState.accept(new CharMessage('a'));
+        State result = noAggregationState.visit(new CharMessage('a'));
 
         //then
         assertThat(result, instanceOf(NoAggregationState.class));

@@ -1,6 +1,6 @@
 package com.acme.edu.logger.formatters;
 
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class DefaultLoggerFormatterTest {
     public void shouldContainPrefixAndFormatedTextWhenFormatArray() {
         int[] arr = {3,21,63};
         IntArrayMessage intArrMessage = new IntArrayMessage(arr);
-        String result = loggerFormatter.accept(intArrMessage);
+        String result = loggerFormatter.visit(intArrMessage);
 
         assertEquals(result, "primitives array: {3, 21, 63}");
     }
@@ -32,7 +32,7 @@ public class DefaultLoggerFormatterTest {
     public void shouldLogEmptyArrayOfPrimitives() {
         int[] array = new int[0];
         IntArrayMessage intArrMessage = new IntArrayMessage(array);
-        String result = loggerFormatter.accept(intArrMessage);
+        String result = loggerFormatter.visit(intArrMessage);
 
         assertEquals(result, "primitives array: {}");
     }
@@ -43,42 +43,42 @@ public class DefaultLoggerFormatterTest {
         String toStringValue = "my object string";
         when(mockedObject.toString()).thenReturn(toStringValue);
 
-        String result = loggerFormatter.accept(new ObjectMessage(mockedObject));
+        String result = loggerFormatter.visit(new ObjectMessage(mockedObject));
 
         assertEquals(result, "reference: " + toStringValue);
     }
 
     @Test
     public void shouldLogNullObjectWithoutNPE() {
-        String result = loggerFormatter.accept(new ObjectMessage(null));
+        String result = loggerFormatter.visit(new ObjectMessage(null));
 
         assertEquals(result, "reference: null");
     }
 
     @Test
     public void shouldLogNullStringWithoutNPE() {
-        String result = loggerFormatter.accept(new StringMessage(null, 1));
+        String result = loggerFormatter.visit(new StringMessage(null, 1));
 
         assertEquals(result, "string: null");
     }
 
     @Test
     public void shouldLogNullArrayWithoutNPE() {
-        String result = loggerFormatter.accept(new IntArrayMessage(null));
+        String result = loggerFormatter.visit(new IntArrayMessage(null));
 
         assertEquals(result, "primitives array: null");
     }
 
     @Test
     public void shouldPrintStringWithoutSuffixWhenPassSingleString() {
-        String result = loggerFormatter.accept(new StringMessage("test", 1));
+        String result = loggerFormatter.visit(new StringMessage("test", 1));
 
         assertEquals(result, "string: test");
     }
 
     @Test
     public void shouldPrintStringWithSuffixWhenPassMultipleStrings() {
-        String result = loggerFormatter.accept(new StringMessage("test", 2));
+        String result = loggerFormatter.visit(new StringMessage("test", 2));
 
         assertEquals(result, "string: test (x2)");
     }
@@ -86,7 +86,7 @@ public class DefaultLoggerFormatterTest {
     @Test
     public void shouldPrintFormatedTextWhenPassByte() {
         byte value = 42;
-        String result = loggerFormatter.accept(new ByteMessage(value));
+        String result = loggerFormatter.visit(new ByteMessage(value));
 
         assertEquals(result, "primitive: 42");
     }
@@ -94,14 +94,14 @@ public class DefaultLoggerFormatterTest {
     @Test
     public void shouldPrintFormatedTextWhenPassInt() {
         int value = 42;
-        String result = loggerFormatter.accept(new IntMessage((value)));
+        String result = loggerFormatter.visit(new IntMessage((value)));
 
         assertEquals(result, "primitive: 42");
     }
 
     @Test
     public void shouldFormatCharMessage() {
-        String result = loggerFormatter.accept(new CharMessage('1'));
+        String result = loggerFormatter.visit(new CharMessage('1'));
 
         assertEquals("char: 1", result);
     }
