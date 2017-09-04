@@ -13,7 +13,11 @@ public abstract class State implements MessageVisitor<State> {
 
     public abstract List<LoggerMessage> getResultOutput();
 
-    public boolean isReadyForPrint() {return false;}
+    public boolean isReadyForPrint() {
+        return false;
+    }
+
+    public abstract boolean isDifferentState(State other);
 
     @Override
     public State accept(BooleanMessage message) {

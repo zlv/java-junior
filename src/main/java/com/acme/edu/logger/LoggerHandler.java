@@ -25,7 +25,7 @@ public class LoggerHandler {
     public void log(LoggerMessage loggerMessage) {
         State previousState = currentState;
         State newState = loggerMessage.visit(currentState);
-        if (newState.getClass() != previousState.getClass()) {
+        if (newState.isDifferentState(previousState)) {
             flushState(previousState);
         }
         printStateIfReady(newState);

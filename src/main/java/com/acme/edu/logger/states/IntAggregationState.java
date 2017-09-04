@@ -1,6 +1,10 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.messages.ByteMessage;
+import com.acme.edu.logger.messaging.messages.IntMessage;
+import com.acme.edu.logger.messaging.messages.LoggerMessage;
+import com.acme.edu.logger.messaging.messages.StringMessage;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,11 @@ public class IntAggregationState extends State {
         }
         result.add(new IntMessage(sumInConstraints));
         return result;
+    }
+
+    @Override
+    public boolean isDifferentState(State other) {
+        return !(other instanceof IntAggregationState);
     }
 
     @Override

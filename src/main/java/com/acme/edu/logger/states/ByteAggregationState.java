@@ -38,6 +38,11 @@ public class ByteAggregationState extends State {
     }
 
     @Override
+    public boolean isDifferentState(State other) {
+        return !(other instanceof ByteAggregationState);
+    }
+
+    @Override
     public State accept(IntMessage message) {
         return new IntAggregationState(message.getValue());
     }

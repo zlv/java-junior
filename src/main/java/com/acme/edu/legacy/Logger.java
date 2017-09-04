@@ -9,13 +9,21 @@ import com.acme.edu.logger.savers.ConsoleLoggerPrinter;
 import com.acme.edu.logger.savers.LoggerPrinter;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+
 public class Logger {
     private static final LoggerContext logger;
 
     static {
         LoggerPrinter printer = new ConsoleLoggerPrinter();
         LoggerFormatter formatter = new DefaultLoggerFormatter();
-        LoggerHandler handler = new LoggerHandler(message -> printer.println(message.visit(formatter)));
+        LoggerHandler handler = new LoggerHandler(message -> {
+            try {
+                printer.println(message.visit(formatter));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         logger = new LoggerContext(handler::log);
     }
 

@@ -1,8 +1,6 @@
 package com.acme.edu.logger;
 
 import com.acme.edu.logger.messaging.messages.LoggerMessage;
-import com.acme.edu.logger.states.NoAggregationState;
-import com.acme.edu.logger.states.State;
 
 import java.util.ArrayList;
 import java.util.List;

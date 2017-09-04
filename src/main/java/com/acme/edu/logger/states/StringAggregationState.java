@@ -1,6 +1,9 @@
 package com.acme.edu.logger.states;
 
-import com.acme.edu.logger.messaging.messages.*;
+import com.acme.edu.logger.messaging.messages.ByteMessage;
+import com.acme.edu.logger.messaging.messages.IntMessage;
+import com.acme.edu.logger.messaging.messages.LoggerMessage;
+import com.acme.edu.logger.messaging.messages.StringMessage;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +28,15 @@ public class StringAggregationState extends State {
     }
 
     @Override
+    public boolean isDifferentState(State other) {
+        if (other instanceof StringAggregationState) {
+            StringAggregationState that = (StringAggregationState) other;
+            return !Objects.equals(that.currentValue, this.currentValue);
+        }
+        return true;
+    }
+
+    @Override
     public State accept(IntMessage message) {
         return new IntAggregationState(message.getValue());
     }
@@ -44,4 +56,22 @@ public class StringAggregationState extends State {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StringAggregationState that = (StringAggregationState) o;
+
+        if (count != that.count) return false;
+        return currentValue != null ? currentValue.equals(that.currentValue) : that.currentValue == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = currentValue != null ? currentValue.hashCode() : 0;
+        result = 31 * result + count;
+        return result;
+    }
 }
