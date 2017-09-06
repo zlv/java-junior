@@ -22,7 +22,7 @@ public class LoggerHandler {
         currentState = new NoAggregationState();
     }
 
-    public void log(LoggerMessage loggerMessage) {
+    public synchronized void log(LoggerMessage loggerMessage) {
         State previousState = currentState;
         State newState = loggerMessage.accept(currentState);
         if (newState.isDifferentState(previousState)) {

@@ -1,5 +1,7 @@
 package com.acme.edu.logger.messaging;
 
+import java.io.Serializable;
+
 /**
  * Created by Java_9 on 31.08.2017.
  */
